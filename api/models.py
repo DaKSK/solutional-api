@@ -9,7 +9,7 @@ class Product(models.Model):
 	price = models.DecimalField(decimal_places=2, max_digits=6)
 
 	class Meta:
-		ordering = ('name',)
+		ordering = ('id',)
 
 	def __str__(self):
 		return f"{self.name}"
