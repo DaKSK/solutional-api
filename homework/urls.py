@@ -17,6 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    # ADMIN
     path('admin/', admin.site.urls),
+    # AUTH
     path('api-auth/', include('rest_framework.urls')),
+    # API ENDPOINTS
+    # path('/api/products', - GET Retrieve Products
+    # path('/api/orders', - POST Create New Order
+    # path('/api/orders/:order_id', - GET Retrieve Order
+    # path('/api/orders/:order_id/products', - GET Retrieve Order Items and PATCH Add Order Item to Order
+    # path('/api/orders/:order_id/products/:product_id', - 2x PATCH Update quantity and Add replacement
 ]
