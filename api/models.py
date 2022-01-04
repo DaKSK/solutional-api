@@ -10,15 +10,17 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-	id = models.UUIDField()
+	id = models.UUIDField(primary_key=True)
 	status = models.CharField(max_length=10)  # NEW / PAID
 
 
 class OrderItem(models.Model):
-	id = models.UUIDField()
-	order = models.ForeignKey(Order, on_delete=models.SET_NULL)
-	product = models.ForeignKey(Product, on_delete=models.SET_NULL)
+	id = models.UUIDField(primary_key=True)
+	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 	quantity = models.IntegerField()
-	replaced_with = models.ForeignKey(Product, null=True, default=None, on_delete=models.DO_NOTHING, from_fields='id')
+	# Replacement product needs just the ID label from the Product model
+	# replaced_with = models.ForeignKey(Product, related_name=product, null=True, default=None, on_delete=models.SET_NULL)
+
 
 
