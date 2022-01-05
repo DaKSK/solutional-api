@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import ProductsList
+from api.views import ProductsList, OrderCreate
 
 urlpatterns = [
     # ADMIN
@@ -24,8 +24,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     # API ENDPOINTS
     path('api/products/', ProductsList.as_view()),  # - GET Retrieve Products
-    # path('/api/orders', - POST Create New Order
-    # path('/api/orders/:order_id', - GET Retrieve Order
-    # path('/api/orders/:order_id/products', - GET Retrieve Order Items and PATCH Add Order Item to Order
-    # path('/api/orders/:order_id/products/:product_id', - 2x PATCH Update quantity and Add replacement
+    path('api/orders', OrderCreate.as_view()),     # - POST Create New Order
+    # path('api/orders/:order_id', - GET Retrieve Order
+    # path('api/orders/:order_id/products', - GET Retrieve Order Items and PATCH Add Order Item to Order
+    # path('api/orders/:order_id/products/:product_id', - 2x PATCH Update quantity and Add replacement
 ]

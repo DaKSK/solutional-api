@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 # Models needed:
 # products, order_items, orders
@@ -16,7 +17,7 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-	id = models.UUIDField(primary_key=True)
+	id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, db_index=True, editable=False)
 	status = models.CharField(max_length=10, default='NEW')  # NEW / PAID
 
 	class Meta:
@@ -27,7 +28,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-	id = models.UUIDField(primary_key=True)
+	id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, db_index=True, editable=False)
 	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
 	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 	quantity = models.IntegerField()
