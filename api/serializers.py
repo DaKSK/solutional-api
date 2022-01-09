@@ -15,7 +15,12 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = OrderItem
-		fields = ('id', 'name', 'price', 'product_id', 'quantity', 'replacement_product')
+		fields = ('id', 'name', 'price', 'product_id', 'quantity', 'replaced_with')
+
+	def to_representation(self, instance):
+		ret = super(OrderItemSerializer, self).to_representation(instance)
+		ret['price'] = str(ret['price'])
+		return ret
 
 
 class OrderSerializer(serializers.ModelSerializer):

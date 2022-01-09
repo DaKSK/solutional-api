@@ -40,11 +40,11 @@ class OrderViewSet(CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateM
 			products = request.data
 			for product_id in products:
 				product = Product.objects.get(id=product_id)
-				existing_order_item = OrderItem.objects.filter(product=product, order=order)
+				current_order_item = OrderItem.objects.filter(product=product, order=order)
 
 				# Handling existing product incrementation and setting default quantity to 1
-				if existing_order_item.exists():
-					order_item = existing_order_item[0]
+				if current_order_item.exists():
+					order_item = current_order_item[0]
 					order_item.quantity = order_item.quantity + 1
 					order_item.save()
 				else:
@@ -52,8 +52,27 @@ class OrderViewSet(CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateM
 					order_item.save()
 				return Response("OK")
 
+	# Method to update order status
+	# Overwriting default method here to return "OK" for updated object
+	def update(self, request, *args, **kwargs):
+		partial = kwargs.pop('partial', False)
+		instance = self.get_object()
+		serializer = self.get_serializer(instance, data=request.data, partial=partial)
+		serializer.is_valid(raise_exception=True)
+		self.perform_update(serializer)
+
+		if getattr(instance, '_prefetched_objects_cache', None):
+			# If 'prefetch_related' has been applied to a queryset, we need to
+			# forcibly invalidate the prefetch cache on the instance.
+			instance._prefetched_objects_cache = {}
+
+		# Here the super would return the full object
+		# return Response(serializer.data)
+		# But we needed >
+		return Response("OK")
+
 	# Method for updating specific OrderItems in Order
-	# The example API uses the url 'products', for clarity they are renamed to OrderItem elsewhere
+	# The example API uses the url 'products', in code this sometimes relates to OrderItem elsewhere
 
 	@action(detail=True, methods=['get', 'patch'], url_path='products/(?P<order_item_pk>[^/.]+)')
 	def update_products(self, request, pk=None, order_item_pk=None):
