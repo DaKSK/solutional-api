@@ -23,7 +23,7 @@ class OrderViewSet(CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateM
 	queryset = Order.objects.all()
 	serializer_class = OrderSerializer
 
-	# Defining the method for returning and adding products
+	# Method for returning and adding products
 
 	@action(detail=True, methods=['get', 'post'])
 	def products(self, request, pk=None):

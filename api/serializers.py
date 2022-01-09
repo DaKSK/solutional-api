@@ -31,12 +31,12 @@ class OrderSerializer(serializers.ModelSerializer):
 		for order_item in queryset:
 			total += order_item.product.price * order_item.quantity
 		current_order = Order.objects.get(id=args.id)
-		paid = total if current_order.status == 'PAID' else 0.00
+		paid = total if current_order.status == 'PAID' else "0.00"
 		return {
 			"discount": "0.00",
-			"paid": paid,
+			"paid": str(paid),
 			"returns": "0.00",
-			"total": total
+			"total": format(total, ".2f")
 		}
 
 	amount = serializers.SerializerMethodField('get_amount')

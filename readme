@@ -1,0 +1,42 @@
+1. It has a list of products;- DONE - available in database file
+2. Products can be added to the order; - DONE
+3. Products can be modified within the order; - DON
+4. Products can be replaced when assembled. - Replacement product operation unknown
+
+
+## API Endpoints
+
+Here's all the API endpoints with usage examples you need to implement:
+https://homework.solutional.ee/api/
+* GET /api/products - list of all available products
+    curl https://homework.solutional.ee/api/products
+* POST /api/orders - create new order
+    curl -X POST https://homework.solutional.ee/api/orders
+* GET /api/orders/:order_id - get order details
+    curl https://homework.solutional.ee/api/orders/:order_id
+* PATCH /api/orders/:order_id - update order
+    curl -X PATCH --data '{"status": "PAID"}' \
+      https://homework.solutional.ee/api/orders/:order_id
+* GET /api/orders/:order_id/products - get order products
+    curl https://homework.solutional.ee/api/orders/:order_id/products
+* POST /api/orders/:order_id/products - add products to order
+    curl --data '[123]' -H "Content-Type: application/json" \
+      https://homework.solutional.ee/api/orders/:order_id/products
+* PATCH /api/orders/:order_id/products/:product_id - update product quantity
+    ```
+    curl -X PATCH --data '{"quantity": 33}' -H "Content-Type: application/json" \
+      https://homework.solutional.ee/api/orders/:order_id/products/:product_id
+    ```
+* PATCH /api/orders/:order_id/products/:product_id - add a replacement product
+    ```
+    curl -X PATCH --data '{"replaced_with": {"product_id": 123, "quantity": 6}}' -H "Content-Type: application/json" \
+      https://homework.solutional.ee/api/orders/:order_id/products/:product_id
+    ```
+
+## Goals
+
+1. Implement all API endpoints described above;
+2. For `GET /api/products` endpoint keep products list exactly the same as is
+   done in the reference API - same products with same attributes (even `id`);
+3. Make it possible to configure listening port number of the application without any need to change the code;
+4. Before starting actual development, provide us with an estimation of when this task is going to be ready.
