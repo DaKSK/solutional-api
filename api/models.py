@@ -42,15 +42,3 @@ class OrderItem(models.Model):
 
 	def __str__(self):
 		return f"{self.id}"
-
-	def get_total(self):
-		total = self.quantity * self.product.price
-		return f"{'total': {total}}"
-
-	# def get_products(self):
-	# 	products = OrderItem.objects.all()
-	# 	if products:
-	# 		return [p for p in products]
-	# 	return []
-
-
