@@ -32,7 +32,6 @@ class OrderItem(models.Model):
 	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
 	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 	quantity = models.IntegerField()
-	# Replacement product needs just the ID field from the Product model
 	replacement_product = models.ForeignKey(
 		Product, related_name="replacement_product", null=True, default=None, on_delete=models.SET_NULL
 	)

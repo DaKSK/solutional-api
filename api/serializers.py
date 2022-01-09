@@ -9,9 +9,13 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+
+	name = serializers.ReadOnlyField(source='product.name')
+	price = serializers.ReadOnlyField(source='product.price')
+
 	class Meta:
 		model = OrderItem
-		fields = ('id', 'order', 'product', 'quantity')
+		fields = ('id', 'name', 'price', 'product_id', 'quantity', 'replacement_product')
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -26,7 +30,6 @@ class OrderSerializer(serializers.ModelSerializer):
 		total = 0
 		for order_item in queryset:
 			total += order_item.product.price * order_item.quantity
-		paid = 0.00
 		current_order = Order.objects.get(id=args.id)
 		paid = total if current_order.status == 'PAID' else 0.00
 		return {
