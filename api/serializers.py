@@ -13,13 +13,6 @@ class OrderItemSerializer(serializers.ModelSerializer):
 		model = OrderItem
 		fields = ('id', 'order', 'product', 'quantity')
 
-# Tried an different approach to formulating the list of Order Items for Order
-# class SlugSerializerField(serializers.SlugRelatedField):
-# 	def get_queryset(self):
-# 		if hasattr(self.root, 'order_id'):
-# 			queryset = self.queryset
-# 			return queryset.filter(order=self.root.order_id)
-
 
 class OrderSerializer(serializers.ModelSerializer):
 
@@ -44,8 +37,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Order
-		fields = ('amount', 'id', 'status', 'products')
+		fields = ('amount', 'id', 'products', 'status')
 
 	products = serializers.SerializerMethodField("get_order_items")
-
-
