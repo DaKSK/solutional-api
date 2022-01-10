@@ -18,6 +18,15 @@ It's not too obvious what is that field representing or how it should behave, so
 After testing all the endpoints, I found an issue with the provided solution. The Order status, should be an
 choice field instead of just a varchar. Unfortunately I ran out of time to make the fix.
 
+## Running the solution:
+
+At the moment only development version of Django is ready to run. Not ready to deploy to production.
+
+1. Download the code and database file
+2. Django 4.0 requires at least Python 3.9
+3. Install dependencies with pip install based on requirements.txt
+4. Run server with python manage.py runserver
+5. API now available on localhost
 
 ## THE TASK:
 
