@@ -14,12 +14,12 @@ recreate the provided API.
 An issue emerged which I noticed prior to providing an estimation was that the replaced_with field
 endpoint doesn't work as intended. The instructions were to copy exactly, but I did provide in the
 comments a possible solution that would fix the issue, depending on how it's actually meant to work.
-It's not too obvious what is that field representing or how it should behave.
+It's not too obvious what is that field representing or how it should behave, so further specification is needed.
+After testing all the endpoints, I found an issue with the provided solution. The Order status, should be an
+choice field instead of just a varchar. Unfortunately I ran out of time to make the fix.
 
-At the time of writing there is one known issue, which is that the price isn't serialized into
-a string. But other functionality seems to have been matched well.
 
-
+## THE TASK:
 
 1. It has a list of products;- DONE - available in database file
 2. Products can be added to the order; - DONE
@@ -46,20 +46,16 @@ https://homework.solutional.ee/api/
     curl --data '[123]' -H "Content-Type: application/json" \
       https://homework.solutional.ee/api/orders/:order_id/products
 * PATCH /api/orders/:order_id/products/:product_id - update product quantity
-    ```
     curl -X PATCH --data '{"quantity": 33}' -H "Content-Type: application/json" \
       https://homework.solutional.ee/api/orders/:order_id/products/:product_id
-    ```
 * PATCH /api/orders/:order_id/products/:product_id - add a replacement product
-    ```
     curl -X PATCH --data '{"replaced_with": {"product_id": 123, "quantity": 6}}' -H "Content-Type: application/json" \
       https://homework.solutional.ee/api/orders/:order_id/products/:product_id
-    ```
 
 ## Goals
 
 1. Implement all API endpoints described above; - DONE
 2. For `GET /api/products` endpoint keep products list exactly the same as is
-   done in the reference API - same products with same attributes (even `id`); - DONE, database file included
+   done in the reference API - same products with same attributes (even `id`); - DONE-> database file included
 3. Make it possible to configure listening port number of the application without any need to change the code; - DONE by default when using Django
 4. Before starting actual development, provide us with an estimation of when this task is going to be ready. - DONE estimation for 10.01.22 provided 03.01.22
